@@ -9,11 +9,11 @@ import royalPad from "./assets/royalpad.png";
 import bellSound from "./assets/bell.wav";
 
 /* ===== MULTIPLE FACT APIs ===== */
-const apis = [
-  "https://f-api.ir/api/facts/random",
-  "https://uselessfacts.jsph.pl/random.json?language=en",
-  "https://meowfacts.herokuapp.com/"
-];
+// const apis = [
+//   "https://f-api.ir/api/facts/random",
+//   "https://uselessfacts.jsph.pl/random.json?language=en",
+//   "https://meowfacts.herokuapp.com/"
+// ];
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
