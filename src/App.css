@@ -1,0 +1,268 @@
+/* ============================= */
+/* GLOBAL */
+/* ============================= */
+
+body {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  background: radial-gradient(circle at center, #2c1b0f, #120a05);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+  color: #3e2a1c;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+  padding-top: 5px;
+}
+
+/* ============================= */
+/* LANGUAGE DROPDOWN */
+/* ============================= */
+
+.language-menu {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 9999;
+}
+
+.selected-language {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.selected-language:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.language-options {
+  position: absolute;
+  right: 0;
+  margin-top: 6px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 6px;
+  overflow: hidden;
+  min-width: 120px;
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.language-options.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.selected-language.active {
+  background: rgba(0, 0, 0, 0.95);
+}
+
+.language-options p {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s ease;
+}
+
+.language-options p:hover {
+  background: rgba(255, 215, 0, 0.2);
+}
+
+
+
+/* ============================= */
+/* FLOATING ANIMATION */
+/* ============================= */
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* ============================= */
+/* CHEST */
+/* ============================= */
+
+.chest {
+  position: relative;
+  cursor: pointer;
+  animation: float 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ===== CLOSED CHEST GLOW ===== */
+
+.chest-img {
+  width: 260px;
+  max-width: 85vw;
+  display: block;
+  transition: transform 0.3s ease;
+  animation: chestGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes chestGlow {
+  from {
+    filter: drop-shadow(0 0 8px gold);
+  }
+  to {
+    filter: drop-shadow(0 0 25px orange);
+  }
+}
+
+.chest-img:hover {
+  transform: scale(1.05);
+}
+
+.hint {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff8dc;
+  font-size: 14px;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 14px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+/* ============================= */
+/* OPEN CHEST IMAGE */
+/* ============================= */
+
+.open-img {
+  width: 260px;
+  max-width: 85vw;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 8px gold); }
+  to { filter: drop-shadow(0 0 22px orange); }
+}
+
+/* ============================= */
+/* ROYAL PAD SECTION */
+/* ============================= */
+
+.open-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.royal-pad {
+  position: relative;
+  width: 600px;
+  max-width: 95vw;
+}
+
+.pad-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pad-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  text-align: center;
+  color: #3e2a1c;
+}
+
+.pad-text h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.pad-text p {
+  font-size: 15px;
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.pad-text button {
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  background: #3e2a1c;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pad-text button:hover {
+  background: #2a1b12;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .chest-img,
+  .open-img {
+    width: 200px;
+  }
+
+  .royal-pad {
+    width: 90%;
+    max-width: 420px;
+  }
+
+  .open-section {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .chest-img,
+  .open-img {
+    width: 170px;
+  }
+
+  .royal-pad {
+    width: 260px;
+  }
+
+  .pad-text h2 {
+    font-size: 16px;
+  }
+
+  .pad-text p {
+    font-size: 14px;
+  }
+
+  .selected-language {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .language-options p {
+    font-size: 13px;
+  }
+}
