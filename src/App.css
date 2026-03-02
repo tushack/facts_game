@@ -138,6 +138,12 @@ body {
   animation: glowTitle 2s ease-in-out infinite alternate;
 }
 
+.chest-img,
+.open-img,
+.pad-img {
+  transition: opacity 0.3s ease;
+}
+
 /* Glowing animation */
 @keyframes glowTitle {
   from {
@@ -220,6 +226,7 @@ body {
   width: 100%;
   height: auto;
   display: block;
+  will-change: transform;
 }
 
 .pad-text {

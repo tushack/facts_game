@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import "./App.css";
 import englishFacts from "./englishFacts";
 import hindiFacts from "./hindiFacts";
@@ -34,7 +34,7 @@ export default function App() {
   };
 
   /* ===== FETCH VALID FACT (MAX 3 LINES APPROX) ===== */
-  const fetchValidFact = () => {
+  const fetchValidFact = useCallback(() => {
     const MAX_LENGTH = 200;
 
     const factsArray =
@@ -53,7 +53,7 @@ export default function App() {
     return validFacts[
       Math.floor(Math.random() * validFacts.length)
     ];
-  };
+  }, [language]);
 
   /* ===== OPEN CHEST ===== */
   const openChest = () => {
@@ -72,23 +72,36 @@ export default function App() {
     setLoading(false);
   };
 
+
+  /* ===== PRELOAD IMAGES ===== */
+  useEffect(() => {
+    const images = [boxClosed, boxOpen, royalPad];
+
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   /* ===== REFRESH (CLOSE BOX FIRST) ===== */
   const reset = () => {
     setIsOpen(false);
     setFact("");
   };
 
+
+
   /* ===== AUTO UPDATE FACT ON LANGUAGE CHANGE ===== */
- useEffect(() => {
-  if (isOpen) {
-    const newFact = fetchValidFact();
-    setFact(newFact);
-  }
-}, [language, isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      const newFact = fetchValidFact();
+      setFact(newFact);
+    }
+  }, [language, isOpen, fetchValidFact]);
 
   return (
     <div className="container">
-    <h1 className="game-title">Facts Game</h1>
+      <h1 className="game-title">Facts Game</h1>
       {/* ===== LANGUAGE DROPDOWN ===== */}
       <div className="language-menu">
         <div
