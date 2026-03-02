@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import englishFacts from "./englishFacts";
 import hindiFacts from "./hindiFacts";
@@ -35,7 +35,7 @@ export default function App() {
 
   /* ===== FETCH VALID FACT (MAX 3 LINES APPROX) ===== */
   const fetchValidFact = () => {
-    const MAX_LENGTH = 180;
+    const MAX_LENGTH = 200;
 
     const factsArray =
       language === "hi" ? hindiFacts : englishFacts;
@@ -78,8 +78,17 @@ export default function App() {
     setFact("");
   };
 
+  /* ===== AUTO UPDATE FACT ON LANGUAGE CHANGE ===== */
+ useEffect(() => {
+  if (isOpen) {
+    const newFact = fetchValidFact();
+    setFact(newFact);
+  }
+}, [language, isOpen]);
+
   return (
     <div className="container">
+    <h1 className="game-title">Facts Game</h1>
       {/* ===== LANGUAGE DROPDOWN ===== */}
       <div className="language-menu">
         <div

@@ -15,9 +15,12 @@ body {
 }
 
 .container {
-  text-align: center;
-  width: 100%;
-  padding-top: 5px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 /* ============================= */
@@ -102,11 +105,48 @@ body {
 
 .chest {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  animation: float 3s ease-in-out infinite;
-  display: inline-block;
 }
 
+.chest-img {
+  width: 260px;
+  max-width: 85vw;
+}
+
+.hint {
+  position: absolute;
+  top: -40px;   /* image ke upar */
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  color: gold;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.game-title {
+  position: absolute;
+  top: 20px;
+  font-size: 42px;
+  font-weight: 500;
+  text-align: center;
+  color: gold;
+  letter-spacing: 2px;
+  animation: glowTitle 2s ease-in-out infinite alternate;
+}
+
+/* Glowing animation */
+@keyframes glowTitle {
+  from {
+    text-shadow: 0 0 8px gold, 0 0 15px orange;
+  }
+  to {
+    text-shadow: 0 0 18px yellow, 0 0 35px gold;
+  }
+}
 /* ===== CLOSED CHEST GLOW ===== */
 
 .chest-img {
