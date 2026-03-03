@@ -133,10 +133,10 @@ export default function App() {
             <img src={royalPad} alt="Royal Letter" className="pad-img" />
 
             <div className="pad-text">
-              <h2>📜 Royal Knowledge</h2>
+              <h2>Royal Knowledge</h2>
               <p>{loading ? "Summoning knowledge..." : fact}</p>
               <button onClick={reset}>
-                Close Chest
+                Close Box
               </button>
             </div>
           </div>

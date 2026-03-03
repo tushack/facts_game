@@ -114,6 +114,7 @@ body {
   from {
     text-shadow: 0 0 8px gold, 0 0 15px orange;
   }
+
   to {
     text-shadow: 0 0 18px yellow, 0 0 35px gold;
   }
@@ -136,15 +137,17 @@ body {
   width: min(260px, 78vw);
   height: auto;
   display: block;
-
   transition: transform 0.3s ease, opacity 0.3s ease;
-  animation: chestGlow 2.5s ease-in-out infinite alternate;
+  animation:
+    chestGlow 2.5s ease-in-out infinite alternate,
+    float 3.2s ease-in-out infinite;
 }
 
 @keyframes chestGlow {
   from {
     filter: drop-shadow(0 0 8px gold);
   }
+
   to {
     filter: drop-shadow(0 0 25px orange);
   }
@@ -179,12 +182,25 @@ body {
   width: min(260px, 78vw);
   height: auto;
   transition: opacity 0.3s ease;
-  animation: glow 2s ease-in-out infinite alternate;
+  animation:
+    glow 2s ease-in-out infinite alternate,
+    float 3.2s ease-in-out infinite;
 }
 
 @keyframes glow {
-  from { filter: drop-shadow(0 0 8px gold); }
-  to { filter: drop-shadow(0 0 22px orange); }
+  from {
+    filter: drop-shadow(0 0 8px gold);
+  }
+
+  to {
+    filter: drop-shadow(0 0 22px orange);
+  }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
 }
 
 /* ============================= */
@@ -239,6 +255,7 @@ body {
 .pad-text p {
   font-size: 15px;
   line-height: 1.5;
+  font-weight: 500;
 
   margin: 0;
 
@@ -275,7 +292,8 @@ body {
 
   .open-section {
     flex-direction: column;
-    gap: 12px; /* ✅ less gap on tablets/phones */
+    gap: 12px;
+    /* ✅ less gap on tablets/phones */
   }
 
   .royal-pad {
@@ -299,7 +317,8 @@ body {
   }
 
   .open-section {
-    gap: 10px; /* ✅ tight gap on small phones */
+    gap: 10px;
+    /* ✅ tight gap on small phones */
   }
 
   .chest-img,
@@ -312,7 +331,8 @@ body {
   }
 
   .pad-img {
-    max-height: 420px; /* ✅ no stretch, no overflow */
+    max-height: 420px;
+    /* ✅ no stretch, no overflow */
   }
 
   .pad-text {
