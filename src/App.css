@@ -15,9 +15,13 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden; /* page scroll off */
-  background-color: #120a05; /* fallback */
+  overflow: hidden;
+  /* page scroll off */
+  background-color: #120a05;
+  /* fallback */
   background: radial-gradient(circle at center, #2c1b0f, #120a05);
+  overscroll-behavior: none;
+  background-color: #120a05;
 }
 
 body {
@@ -28,6 +32,12 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 /* ✅ App scroll (if ever needed) happens here */
 #root {
   height: 100%;
@@ -36,14 +46,15 @@ body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 
-  background-color: #120a05; /* fallback */
+  background-color: #120a05;
+  /* fallback */
   background: radial-gradient(circle at center, #2c1b0f, #120a05);
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  padding: 20px 12px 28px;
+  padding: calc(20px + var(--safe-top)) 12px calc(28px + var(--safe-bottom));
 }
 
 /* =========================================================
@@ -126,8 +137,7 @@ body {
   background-position: center;
 
   /* make yellow-ish if needed */
-  filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(1760%)
-    hue-rotate(355deg) brightness(103%) contrast(105%);
+  filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(1760%) hue-rotate(355deg) brightness(103%) contrast(105%);
 }
 
 /* Dropdown arrow from image */
@@ -144,8 +154,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 
-  filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(1760%)
-    hue-rotate(355deg) brightness(103%) contrast(105%);
+  filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(1760%) hue-rotate(355deg) brightness(103%) contrast(105%);
 }
 
 /* Dropdown list */
@@ -209,7 +218,8 @@ body {
   color: gold;
   letter-spacing: 1.6px;
 
-  white-space: nowrap;       /* ✅ one line */
+  white-space: nowrap;
+  /* ✅ one line */
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -219,7 +229,8 @@ body {
 
 .title-divider {
   position: absolute;
-  top: 104px; /* ✅ gap from title */
+  top: 104px;
+  /* ✅ gap from title */
   left: 50%;
   transform: translateX(-50%);
   width: 120px;
@@ -233,6 +244,7 @@ body {
   from {
     text-shadow: 0 0 8px gold, 0 0 15px orange;
   }
+
   to {
     text-shadow: 0 0 18px yellow, 0 0 35px gold;
   }
@@ -244,7 +256,8 @@ body {
 
 .category-wrap {
   position: absolute;
-  top: 134px; /* ✅ a bit lower */
+  top: 134px;
+  /* ✅ a bit lower */
   left: 50%;
   transform: translateX(-50%);
   width: min(940px, 92vw);
@@ -326,6 +339,7 @@ body {
   from {
     filter: drop-shadow(0 0 8px gold);
   }
+
   to {
     filter: drop-shadow(0 0 25px orange);
   }
@@ -363,6 +377,7 @@ body {
   from {
     filter: drop-shadow(0 0 8px gold);
   }
+
   to {
     filter: drop-shadow(0 0 22px orange);
   }
@@ -372,9 +387,11 @@ body {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-12px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -389,7 +406,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 18px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-content: flex-start;
   padding: 0 14px;
 }
 
@@ -431,7 +449,7 @@ body {
   line-height: 1.5;
   font-weight: 500;
   margin: 0;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
   white-space: normal;
   overflow-wrap: anywhere;
@@ -482,9 +500,19 @@ body {
     padding: 10px 16px;
   }
 
+  .container {
+    justify-content: flex-start;
+    /* ✅ center se start */
+    padding-top: 140px;
+    /* ✅ title + pill ke niche space */
+    min-height: 100dvh;
+  }
+
   .open-section {
     flex-direction: column;
-    gap: 12px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .royal-pad {
@@ -498,12 +526,12 @@ body {
   }
 
   .language-menu {
-    top: 14px;
-    right: 14px;
+    top: calc(12px + var(--safe-top));
+    right: 12px;
   }
 
   .selected-language {
-    min-width: 126px;
+    min-width: 112px;
     height: 38px;
     font-size: 14px;
     padding: 7px 10px;
@@ -514,9 +542,11 @@ body {
   }
 
   .game-title {
-    font-size: 22px; /* ✅ one line */
+    font-size: 22px;
+    /* ✅ one line */
     top: 14px;
     letter-spacing: 1px;
+    width: min(92vw, calc(100vw - 170px));
   }
 
   .title-divider {
