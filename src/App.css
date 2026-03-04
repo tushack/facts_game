@@ -9,15 +9,25 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
+  align-items: center;
+
+  /* ✅ responsive spacing */
+  padding: 20px 12px 28px;
   color: #3e2a1c;
 }
 
 .container {
-  text-align: center;
+  min-height: 100vh;
   width: 100%;
-  padding-top: 5px;
+  max-width: 980px;
+  padding: 0 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
 }
 
 /* ============================= */
@@ -47,6 +57,10 @@ body {
   background: rgba(0, 0, 0, 0.9);
 }
 
+.selected-language.active {
+  background: rgba(0, 0, 0, 0.95);
+}
+
 .language-options {
   position: absolute;
   right: 0;
@@ -67,9 +81,6 @@ body {
   transform: translateY(0);
   pointer-events: auto;
 }
-.selected-language.active {
-  background: rgba(0, 0, 0, 0.95);
-}
 
 .language-options p {
   margin: 0;
@@ -84,16 +95,29 @@ body {
   background: rgba(255, 215, 0, 0.2);
 }
 
-
-
 /* ============================= */
-/* FLOATING ANIMATION */
+/* TITLE */
 /* ============================= */
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+.game-title {
+  position: absolute;
+  top: 18px;
+  font-size: 42px;
+  font-weight: 500;
+  text-align: center;
+  color: gold;
+  letter-spacing: 2px;
+  animation: glowTitle 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowTitle {
+  from {
+    text-shadow: 0 0 8px gold, 0 0 15px orange;
+  }
+
+  to {
+    text-shadow: 0 0 18px yellow, 0 0 35px gold;
+  }
 }
 
 /* ============================= */
@@ -102,25 +126,28 @@ body {
 
 .chest {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  animation: float 3s ease-in-out infinite;
-  display: inline-block;
 }
 
-/* ===== CLOSED CHEST GLOW ===== */
-
+/* ✅ single definition (duplicate removed) */
 .chest-img {
-  width: 260px;
-  max-width: 85vw;
+  width: min(260px, 78vw);
+  height: auto;
   display: block;
-  transition: transform 0.3s ease;
-  animation: chestGlow 2.5s ease-in-out infinite alternate;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation:
+    chestGlow 2.5s ease-in-out infinite alternate,
+    float 3.2s ease-in-out infinite;
 }
 
 @keyframes chestGlow {
   from {
     filter: drop-shadow(0 0 8px gold);
   }
+
   to {
     filter: drop-shadow(0 0 25px orange);
   }
@@ -130,6 +157,7 @@ body {
   transform: scale(1.05);
 }
 
+/* ✅ single definition (duplicate removed) */
 .hint {
   position: absolute;
   top: 15%;
@@ -142,6 +170,8 @@ body {
   padding: 8px 14px;
   border-radius: 6px;
   pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* ============================= */
@@ -149,14 +179,28 @@ body {
 /* ============================= */
 
 .open-img {
-  width: 260px;
-  max-width: 85vw;
-  animation: glow 2s ease-in-out infinite alternate;
+  width: min(260px, 78vw);
+  height: auto;
+  transition: opacity 0.3s ease;
+  animation:
+    glow 2s ease-in-out infinite alternate,
+    float 3.2s ease-in-out infinite;
 }
 
 @keyframes glow {
-  from { filter: drop-shadow(0 0 8px gold); }
-  to { filter: drop-shadow(0 0 22px orange); }
+  from {
+    filter: drop-shadow(0 0 8px gold);
+  }
+
+  to {
+    filter: drop-shadow(0 0 22px orange);
+  }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
 }
 
 /* ============================= */
@@ -167,19 +211,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+
+  /* ✅ gap reduced + responsive */
+  gap: 18px;
+
+  flex-wrap: wrap;
+  padding: 0 14px;
 }
 
 .royal-pad {
   position: relative;
-  width: 600px;
-  max-width: 95vw;
+  width: min(600px, 96vw);
+  max-width: 96vw;
 }
 
 .pad-img {
   width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  will-change: transform;
 }
 
 .pad-text {
@@ -187,25 +239,34 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 65%;
+
+  width: 72%;
+  max-width: 460px;
+
   text-align: center;
   color: #3e2a1c;
 }
 
 .pad-text h2 {
   font-size: 18px;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
 }
 
 .pad-text p {
   font-size: 15px;
   line-height: 1.5;
+  font-weight: 500;
+
+  margin: 0;
+
+  /* ✅ safe wrapping on all phones */
   white-space: normal;
-  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .pad-text button {
-  margin-bottom: 10px;
+  margin-top: 10px;
   padding: 6px 12px;
   font-size: 13px;
   border: none;
@@ -224,37 +285,26 @@ body {
 /* ============================= */
 
 @media (max-width: 768px) {
-  .chest-img,
-  .open-img {
-    width: 200px;
-  }
-
-  .royal-pad {
-    width: 90%;
-    max-width: 420px;
+  .game-title {
+    font-size: 34px;
+    top: 16px;
   }
 
   .open-section {
     flex-direction: column;
+    gap: 12px;
+    /* ✅ less gap on tablets/phones */
+  }
+
+  .royal-pad {
+    width: min(520px, 94vw);
   }
 }
 
 @media (max-width: 480px) {
-  .chest-img,
-  .open-img {
-    width: 170px;
-  }
-
-  .royal-pad {
-    width: 260px;
-  }
-
-  .pad-text h2 {
-    font-size: 16px;
-  }
-
-  .pad-text p {
-    font-size: 14px;
+  .game-title {
+    font-size: 28px;
+    top: 14px;
   }
 
   .selected-language {
@@ -264,5 +314,36 @@ body {
 
   .language-options p {
     font-size: 13px;
+  }
+
+  .open-section {
+    gap: 10px;
+    /* ✅ tight gap on small phones */
+  }
+
+  .chest-img,
+  .open-img {
+    width: min(190px, 74vw);
+  }
+
+  .royal-pad {
+    width: min(420px, 96vw);
+  }
+
+  .pad-img {
+    max-height: 420px;
+    /* ✅ no stretch, no overflow */
+  }
+
+  .pad-text {
+    width: 78%;
+  }
+
+  .pad-text h2 {
+    font-size: 16px;
+  }
+
+  .pad-text p {
+    font-size: 13.5px;
   }
 }
