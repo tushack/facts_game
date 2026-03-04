@@ -310,6 +310,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-top: 60px;
 }
 
 .chest-img {
