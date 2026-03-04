@@ -1,27 +1,61 @@
-/* ============================= */
-/* GLOBAL */
-/* ============================= */
+/* =========================================================
+   FULL RESPONSIVE APP.CSS (No white corners + no stretch)
+   ========================================================= */
 
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ✅ iOS / Safari: stop page rubber-band + remove white corners */
+html,
 body {
   margin: 0;
-  font-family: "Cinzel", serif;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* page scroll off */
+  background-color: #120a05; /* fallback */
   background: radial-gradient(circle at center, #2c1b0f, #120a05);
-  min-height: 100vh;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+  font-family: "Almendra Display", serif, "Nova Cut", cursive, sans-serif;
+  color: #3e2a1c;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ✅ App scroll (if ever needed) happens here */
+#root {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  background-color: #120a05; /* fallback */
+  background: radial-gradient(circle at center, #2c1b0f, #120a05);
+
   display: flex;
   justify-content: center;
   align-items: center;
 
-  /* ✅ responsive spacing */
   padding: 20px 12px 28px;
-  color: #3e2a1c;
 }
 
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+
 .container {
-  min-height: 100vh;
   width: 100%;
   max-width: 980px;
   padding: 0 10px;
 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,50 +64,110 @@ body {
   position: relative;
 }
 
-/* ============================= */
-/* LANGUAGE DROPDOWN */
-/* ============================= */
+/* =========================================================
+   LANGUAGE DROPDOWN (Screenshot style)
+   ========================================================= */
 
 .language-menu {
   position: fixed;
-  top: 20px;
-  right: 25px;
+  top: 16px;
+  right: 16px;
   z-index: 9999;
 }
 
 .selected-language {
   cursor: pointer;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.75);
-  color: white;
   user-select: none;
-  transition: background 0.2s ease;
+
+  background: rgba(15, 10, 6, 0.75);
+  border: 1.6px solid rgba(255, 215, 0, 0.45);
+  border-radius: 14px;
+
+  padding: 8px 12px;
+  min-width: 132px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  color: rgba(255, 215, 0, 0.92);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+
+  white-space: nowrap;
 }
 
 .selected-language:hover {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(15, 10, 6, 0.86);
+  border-color: rgba(255, 215, 0, 0.65);
 }
 
 .selected-language.active {
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(15, 10, 6, 0.92);
+  border-color: rgba(255, 215, 0, 0.8);
 }
 
+/* Globe icon from image */
+.selected-language::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+
+  background-image: url("./assets/globe.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* make yellow-ish if needed */
+  filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(1760%)
+    hue-rotate(355deg) brightness(103%) contrast(105%);
+}
+
+/* Dropdown arrow from image */
+.selected-language::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-left: 6px;
+  opacity: 0.95;
+
+  background-image: url("./assets/dropdown.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: brightness(0) saturate(100%) invert(84%) sepia(35%) saturate(1760%)
+    hue-rotate(355deg) brightness(103%) contrast(105%);
+}
+
+/* Dropdown list */
 .language-options {
   position: absolute;
   right: 0;
-  margin-top: 6px;
-  background: rgba(0, 0, 0, 0.9);
-  border-radius: 6px;
+  margin-top: 10px;
+
+  background: rgba(15, 10, 6, 0.92);
+  border: 1.6px solid rgba(255, 215, 0, 0.35);
+  border-radius: 14px;
+
   overflow: hidden;
-  min-width: 120px;
+  min-width: 150px;
+
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
 
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   pointer-events: none;
-  transition: all 0.25s ease;
+  transition: all 0.22s ease;
 }
 
 .language-options.show {
@@ -84,45 +178,131 @@ body {
 
 .language-options p {
   margin: 0;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 215, 0, 0.92);
   cursor: pointer;
-  color: white;
-  transition: background 0.2s ease;
+  transition: background 0.18s ease;
+  white-space: nowrap;
 }
 
 .language-options p:hover {
-  background: rgba(255, 215, 0, 0.2);
+  background: rgba(255, 215, 0, 0.12);
 }
 
-/* ============================= */
-/* TITLE */
-/* ============================= */
+/* =========================================================
+   TITLE
+   ========================================================= */
 
 .game-title {
   position: absolute;
   top: 18px;
-  font-size: 42px;
-  font-weight: 500;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: min(940px, 92vw);
   text-align: center;
+
+  font-size: 40px;
+  font-weight: 500;
   color: gold;
-  letter-spacing: 2px;
+  letter-spacing: 1.6px;
+
+  white-space: nowrap;       /* ✅ one line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   animation: glowTitle 2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.title-divider {
+  position: absolute;
+  top: 104px; /* ✅ gap from title */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(255, 215, 0, 0.35);
+  pointer-events: none;
 }
 
 @keyframes glowTitle {
   from {
     text-shadow: 0 0 8px gold, 0 0 15px orange;
   }
-
   to {
     text-shadow: 0 0 18px yellow, 0 0 35px gold;
   }
 }
 
-/* ============================= */
-/* CHEST */
-/* ============================= */
+/* =========================================================
+   CATEGORY PILL
+   ========================================================= */
+
+.category-wrap {
+  position: absolute;
+  top: 134px; /* ✅ a bit lower */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(940px, 92vw);
+
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+}
+
+.category-pill {
+  border: 2px solid rgba(255, 215, 0, 0.55);
+  color: gold;
+  background: rgba(120, 10, 10, 0.65);
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  letter-spacing: 1.1px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border 0.15s ease;
+  backdrop-filter: blur(2px);
+
+  white-space: nowrap;
+  max-width: 92vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.category-pill:hover {
+  transform: translateY(-1px);
+  background: rgba(150, 20, 20, 0.65);
+  border-color: rgba(255, 215, 0, 0.75);
+}
+
+/* Icon from image */
+.pill-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+
+  background-image: url("./assets/currentglobe.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* hide original text inside span */
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+}
+
+/* =========================================================
+   CHEST + OPEN BOX
+   ========================================================= */
 
 .chest {
   position: relative;
@@ -132,14 +312,12 @@ body {
   cursor: pointer;
 }
 
-/* ✅ single definition (duplicate removed) */
 .chest-img {
   width: min(260px, 78vw);
   height: auto;
   display: block;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  animation:
-    chestGlow 2.5s ease-in-out infinite alternate,
+  animation: chestGlow 2.5s ease-in-out infinite alternate,
     float 3.2s ease-in-out infinite;
 }
 
@@ -147,7 +325,6 @@ body {
   from {
     filter: drop-shadow(0 0 8px gold);
   }
-
   to {
     filter: drop-shadow(0 0 25px orange);
   }
@@ -157,33 +334,27 @@ body {
   transform: scale(1.05);
 }
 
-/* ✅ single definition (duplicate removed) */
 .hint {
   position: absolute;
-  top: 15%;
+  top: 18%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #fff8dc;
+  color: #e6bc15;
   font-size: 14px;
   font-weight: bold;
-  background: rgba(0, 0, 0, 0.5);
   padding: 8px 14px;
   border-radius: 6px;
   pointer-events: none;
   text-align: center;
   white-space: nowrap;
+  font-family: "Delius Swash Caps", cursive;
 }
-
-/* ============================= */
-/* OPEN CHEST IMAGE */
-/* ============================= */
 
 .open-img {
   width: min(260px, 78vw);
   height: auto;
   transition: opacity 0.3s ease;
-  animation:
-    glow 2s ease-in-out infinite alternate,
+  animation: glow 2s ease-in-out infinite alternate,
     float 3.2s ease-in-out infinite;
 }
 
@@ -191,30 +362,32 @@ body {
   from {
     filter: drop-shadow(0 0 8px gold);
   }
-
   to {
     filter: drop-shadow(0 0 22px orange);
   }
 }
 
 @keyframes float {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-12px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
-/* ============================= */
-/* ROYAL PAD SECTION */
-/* ============================= */
+/* =========================================================
+   ROYAL PAD
+   ========================================================= */
 
 .open-section {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* ✅ gap reduced + responsive */
   gap: 18px;
-
   flex-wrap: wrap;
   padding: 0 14px;
 }
@@ -242,7 +415,6 @@ body {
 
   width: 72%;
   max-width: 460px;
-
   text-align: center;
   color: #3e2a1c;
 }
@@ -250,26 +422,27 @@ body {
 .pad-text h2 {
   font-size: 18px;
   margin: 0 0 8px;
+  font-family: "Delius Swash Caps", cursive;
 }
 
 .pad-text p {
   font-size: 15px;
   line-height: 1.5;
   font-weight: 500;
-
   margin: 0;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
-  /* ✅ safe wrapping on all phones */
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
 .pad-text button {
-  margin-top: 10px;
+  margin-top: 14px;
   padding: 6px 12px;
   font-size: 13px;
   border: none;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   background: #3e2a1c;
   color: white;
   border-radius: 6px;
@@ -280,20 +453,37 @@ body {
   background: #2a1b12;
 }
 
-/* ============================= */
-/* RESPONSIVE */
-/* ============================= */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 768px) {
+  #root {
+    padding: 18px 10px 24px;
+  }
+
   .game-title {
-    font-size: 34px;
+    font-size: 30px;
     top: 16px;
+  }
+
+  .title-divider {
+    top: 86px;
+    width: 100px;
+  }
+
+  .category-wrap {
+    top: 114px;
+  }
+
+  .category-pill {
+    font-size: 13.5px;
+    padding: 10px 16px;
   }
 
   .open-section {
     flex-direction: column;
     gap: 12px;
-    /* ✅ less gap on tablets/phones */
   }
 
   .royal-pad {
@@ -302,23 +492,45 @@ body {
 }
 
 @media (max-width: 480px) {
-  .game-title {
-    font-size: 28px;
+  #root {
+    padding: 16px 10px 22px;
+  }
+
+  .language-menu {
     top: 14px;
+    right: 14px;
   }
 
   .selected-language {
-    font-size: 13px;
-    padding: 5px 8px;
+    min-width: 126px;
+    height: 38px;
+    font-size: 14px;
+    padding: 7px 10px;
   }
 
-  .language-options p {
-    font-size: 13px;
+  .language-options {
+    min-width: 140px;
   }
 
-  .open-section {
-    gap: 10px;
-    /* ✅ tight gap on small phones */
+  .game-title {
+    font-size: 22px; /* ✅ one line */
+    top: 14px;
+    letter-spacing: 1px;
+  }
+
+  .title-divider {
+    top: 70px;
+    width: 90px;
+  }
+
+  .category-wrap {
+    top: 96px;
+  }
+
+  .category-pill {
+    font-size: 11.5px;
+    padding: 9px 14px;
+    letter-spacing: 0.8px;
   }
 
   .chest-img,
@@ -332,7 +544,6 @@ body {
 
   .pad-img {
     max-height: 420px;
-    /* ✅ no stretch, no overflow */
   }
 
   .pad-text {
