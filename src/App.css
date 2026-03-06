@@ -477,22 +477,24 @@ body {
    ========================================================= */
 
 @media (max-width: 768px) {
-  #root {
-    padding: 18px 10px 24px;
+ #root {
+    justify-content: flex-start; /* ✅ center हटेगा, title gayab nahi hoga */
+    align-items: center;
+    padding: calc(18px + var(--safe-top)) 10px calc(24px + var(--safe-bottom)); /* ✅ safe-area maintain */
   }
 
   .game-title {
     font-size: 30px;
-    top: 16px;
+    top: calc(var(--safe-top) + 56px);   /* ✅ title niche */
   }
 
   .title-divider {
-    top: 86px;
+    top: calc(var(--safe-top) + 126px);  /* ✅ divider bhi niche */
     width: 100px;
   }
 
   .category-wrap {
-    top: 114px;
+    top: calc(var(--safe-top) + 154px);  /* ✅ pill bhi niche */
   }
 
   .category-pill {
@@ -521,8 +523,10 @@ body {
 }
 
 @media (max-width: 480px) {
-  #root {
-    padding: 16px 10px 22px;
+   #root {
+    justify-content: flex-start; /* ✅ */
+    align-items: center;
+    padding: calc(16px + var(--safe-top)) 10px calc(22px + var(--safe-bottom)); /* ✅ safe-area */
   }
 
   .language-menu {
@@ -544,18 +548,18 @@ body {
   .game-title {
     font-size: 22px;
     /* ✅ one line */
-    top: 14px;
+    top: calc(var(--safe-top) + 54px);   /* ✅ phone pe aur better */
     letter-spacing: 1px;
     width: min(92vw, calc(100vw - 170px));
   }
 
   .title-divider {
-    top: 70px;
+    top: calc(var(--safe-top) + 110px);
     width: 90px;
   }
 
   .category-wrap {
-    top: 96px;
+    top: calc(var(--safe-top) + 136px);
   }
 
   .category-pill {
