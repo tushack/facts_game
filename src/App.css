@@ -223,7 +223,6 @@ body {
   letter-spacing: 1.6px;
 
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
 
   animation: glowTitle 2s ease-in-out infinite alternate;
