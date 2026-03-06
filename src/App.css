@@ -205,11 +205,15 @@ body {
    ========================================================= */
 
 .game-title {
-  position: absolute;
-  top: 18px;
+  position: fixed;
+  /* ✅ was absolute */
+  top: calc(18px + var(--safe-top));
+  /* ✅ safe-area aware */
   left: 50%;
   transform: translateX(-50%);
 
+  z-index: 999;
+  /* ✅ always on top */
   width: min(940px, 92vw);
   text-align: center;
 
@@ -219,7 +223,6 @@ body {
   letter-spacing: 1.6px;
 
   white-space: nowrap;
-  /* ✅ one line */
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -228,9 +231,10 @@ body {
 }
 
 .title-divider {
-  position: absolute;
-  top: 104px;
-  /* ✅ gap from title */
+  position: fixed;
+  /* ✅ was absolute */
+  top: calc(104px + var(--safe-top));
+  /* ✅ */
   left: 50%;
   transform: translateX(-50%);
   width: 120px;
@@ -238,6 +242,8 @@ body {
   border-radius: 99px;
   background: rgba(255, 215, 0, 0.35);
   pointer-events: none;
+  z-index: 999;
+  /* ✅ */
 }
 
 @keyframes glowTitle {
@@ -253,18 +259,19 @@ body {
 /* =========================================================
    CATEGORY PILL
    ========================================================= */
-
 .category-wrap {
-  position: absolute;
-  top: 134px;
-  /* ✅ a bit lower */
+  position: fixed;
+  /* ✅ was absolute */
+  top: calc(134px + var(--safe-top));
+  /* ✅ */
   left: 50%;
   transform: translateX(-50%);
   width: min(940px, 92vw);
 
   display: flex;
   justify-content: center;
-  z-index: 50;
+  z-index: 999;
+  /* ✅ */
 }
 
 .category-pill {
@@ -409,6 +416,8 @@ body {
   flex-wrap: nowrap;
   align-content: flex-start;
   padding: 0 14px;
+
+  margin-top: 170px; /* ✅ open box thoda niche */
 }
 
 .royal-pad {
@@ -477,24 +486,29 @@ body {
    ========================================================= */
 
 @media (max-width: 768px) {
- #root {
-    justify-content: flex-start; /* ✅ center हटेगा, title gayab nahi hoga */
+  #root {
+    justify-content: flex-start;
+    /* ✅ center हटेगा, title gayab nahi hoga */
     align-items: center;
-    padding: calc(18px + var(--safe-top)) 10px calc(24px + var(--safe-bottom)); /* ✅ safe-area maintain */
+    padding: calc(18px + var(--safe-top)) 10px calc(24px + var(--safe-bottom));
+    /* ✅ safe-area maintain */
   }
 
   .game-title {
     font-size: 30px;
-    top: calc(var(--safe-top) + 56px);   /* ✅ title niche */
+    top: calc(var(--safe-top) + 56px);
+    /* ✅ title niche */
   }
 
   .title-divider {
-    top: calc(var(--safe-top) + 126px);  /* ✅ divider bhi niche */
+    top: calc(var(--safe-top) + 126px);
+    /* ✅ divider bhi niche */
     width: 100px;
   }
 
   .category-wrap {
-    top: calc(var(--safe-top) + 154px);  /* ✅ pill bhi niche */
+    top: calc(var(--safe-top) + 154px);
+    /* ✅ pill bhi niche */
   }
 
   .category-pill {
@@ -505,7 +519,7 @@ body {
   .container {
     justify-content: flex-start;
     /* ✅ center se start */
-    padding-top: 140px;
+    padding-top: calc(170px + var(--safe-top));
     /* ✅ title + pill ke niche space */
     min-height: 100dvh;
   }
@@ -523,15 +537,22 @@ body {
 }
 
 @media (max-width: 480px) {
-   #root {
-    justify-content: flex-start; /* ✅ */
+  #root {
+    justify-content: flex-start;
+    /* ✅ */
     align-items: center;
-    padding: calc(16px + var(--safe-top)) 10px calc(22px + var(--safe-bottom)); /* ✅ safe-area */
+    padding: calc(16px + var(--safe-top)) 10px calc(22px + var(--safe-bottom));
+    /* ✅ safe-area */
   }
 
   .language-menu {
     top: calc(12px + var(--safe-top));
     right: 12px;
+  }
+
+  .container {
+    padding-top: calc(160px + var(--safe-top));
+    /* ✅ adjust if needed */
   }
 
   .selected-language {
@@ -548,7 +569,8 @@ body {
   .game-title {
     font-size: 22px;
     /* ✅ one line */
-    top: calc(var(--safe-top) + 54px);   /* ✅ phone pe aur better */
+    top: calc(var(--safe-top) + 54px);
+    /* ✅ phone pe aur better */
     letter-spacing: 1px;
     width: min(92vw, calc(100vw - 170px));
   }
